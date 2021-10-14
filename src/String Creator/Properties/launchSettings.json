@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "String Creator": {
+      "commandName": "Project",
+      "commandLineArgs": "\"../../../strings.csv\" \"../../../../Bot Application/Strings.cs\""
+    }
+  }
+}
