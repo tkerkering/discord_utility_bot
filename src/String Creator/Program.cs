@@ -15,7 +15,7 @@ namespace StringCreator
             Console.WriteLine("Scanning for strings!");
 
 #if DEBUG
-            var pathToCsv = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName + "\\" + _csvPath;
+            var pathToCsv = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName + "\\Files\\" + _csvPath;
 
             if (!File.Exists(pathToCsv))
             {
