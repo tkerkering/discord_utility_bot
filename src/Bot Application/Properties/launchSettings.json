@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Discord Utility Bot": {
+      "commandName": "Project",
+      "commandLineArgs": "../../../token.txt"
+    }
+  }
+}

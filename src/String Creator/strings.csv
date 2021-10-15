@@ -1,3 +1,8 @@
 Key;Comment;Value
-TestOne;Just for testing purposes;First testing purpose
-TestTwo;Tester Comment;Test Test
+GrantCommandDescription;The description of the command that is displayed when pressing /;TBD
+GrantCommandUserParameterName;The name of the user parameter (displayed in blue) => all lowercase, else it will crash;tbd
+GrantCommandUserParameterDescription;The description of the user parameter that is displayed when the grant command is selected;TBD
+GrantCommandNotAllowed;The text that is displayed when a user tries to use that grant command that isn't allowed to;TBD
+GrantCommandResponse;The response that the bot will send if the grant command was successful;TBD
+GrantCommandAlreadyGrantedResponse;The response that the bot will send if the user already got the arks operative role;TBD
+RemindCommandDescription;The description of the command that is displayed when pressing /;TBD
