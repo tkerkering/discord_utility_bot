@@ -350,3 +350,4 @@ MigrationBackup/
 .ionide/
 src/Bot Application/token.txt
 src/Bot Application/Strings.cs
+src/String Creator/Files/Readme.gdoc
