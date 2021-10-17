@@ -31,7 +31,7 @@ namespace DiscordUtilityBot.Commands.SlashCommands.Global
 
         public override async Task Respond(SocketSlashCommand command, DiscordSocketClient client)
         {
-            await command.RespondAsync($"Not implemented yet but you used {command.Data.Name}");
+            await command.RespondAsync($"Not implemented yet but you used {command.Data.Name}").ConfigureAwait(false);
         }
     }
 }

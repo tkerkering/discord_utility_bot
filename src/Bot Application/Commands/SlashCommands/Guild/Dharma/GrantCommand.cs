@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Anotar.Serilog;
 using Discord;
@@ -33,17 +34,20 @@ namespace DiscordUtilityBot.Commands.SlashCommands.Guild.Dharma
 
         public override async Task Respond(SocketSlashCommand command, DiscordSocketClient client)
         {
-            var guild = client.GetGuild(DharmaConstants.GuildId);
+            // Get the author, if it isn't present download all users from guild
+            await command.DeferAsync(true).ConfigureAwait(false);
+            IGuild guild = client.Guilds.Where(g => g.Id == DharmaConstants.GuildId).First();
+            var author = await guild.GetUserAsync(command.User.Id).ConfigureAwait(false);
 
-            var author = guild.GetUser(command.User.Id);
+            // Get the mentioned user
             var mentionedUser = (SocketGuildUser)command.Data.Options.First().Value;
 
             var allowedToUseGrant = false;
-            foreach (var role in author.Roles)
+            foreach (var role in author.RoleIds)
             {
                 foreach (var officerRole in DharmaConstants.CanGrantRoles)
                 {
-                    if (role.Id == officerRole)
+                    if (role == officerRole)
                     {
                         allowedToUseGrant = true;
                         break;
@@ -58,7 +62,7 @@ namespace DiscordUtilityBot.Commands.SlashCommands.Guild.Dharma
 
             if (!allowedToUseGrant)
             {
-                await command.RespondAsync(Strings.GrantCommandNotAllowed).ConfigureAwait(false);
+                await command.ModifyOriginalResponseAsync((msg) => msg.Content = Strings.GrantCommandNotAllowed).ConfigureAwait(false);
                 return;
             }
 
@@ -66,12 +70,12 @@ namespace DiscordUtilityBot.Commands.SlashCommands.Guild.Dharma
 
             if (!hasArksRole)
             {
-                await mentionedUser.AddRoleAsync(DharmaConstants.ArksOperative);
-                await command.RespondAsync(Strings.GrantCommandResponse).ConfigureAwait(false);
+                await mentionedUser.AddRoleAsync(DharmaConstants.ArksOperative).ConfigureAwait(false);
+                await command.ModifyOriginalResponseAsync((msg) => msg.Content = Strings.GrantCommandResponse).ConfigureAwait(false);
             }
             else
             {
-                await command.RespondAsync(Strings.GrantCommandAlreadyGrantedResponse).ConfigureAwait(false);
+                await command.ModifyOriginalResponseAsync((msg) => msg.Content = Strings.GrantCommandAlreadyGrantedResponse).ConfigureAwait(false);
             }
         }
     }
