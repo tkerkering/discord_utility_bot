@@ -14,7 +14,15 @@ namespace DiscordUtilityBot.Constants
         public static readonly ulong Recruiter = 787349884999041044;
         public static readonly ulong SupportOfficer = 754836832268582932;
 
-        public static readonly IEnumerable<ulong> CanGrantRoles = new List<ulong>()
+        public static readonly IEnumerable<ulong> AdminstrativeOfficers = new List<ulong>()
+        {
+            Dreamer,
+            ExecutiveOfficer,
+            DiscordOfficer,
+            ArtDirector
+        };
+
+        public static readonly IEnumerable<ulong> OfficerRoles = new List<ulong>()
         {
             Dreamer,
             ExecutiveOfficer,

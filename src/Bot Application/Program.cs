@@ -9,7 +9,6 @@ using Anotar.Serilog;
 using Discord;
 using Discord.WebSocket;
 using DiscordUtilityBot.Commands.SlashCommands;
-using DiscordUtilityBot.Constants;
 using Serilog;
 
 // TODO: Create config handler that reads/writes all configurations to text files (until there is a db) 
@@ -36,8 +35,8 @@ namespace DiscordUtilityBot
 
             var token = File.ReadAllText(args[0]);
             LogTo.Information("Creating discord client with token {0}", token);
-            _client = new DiscordSocketClient(new DiscordSocketConfig() 
-            { 
+            _client = new DiscordSocketClient(new DiscordSocketConfig()
+            {
                 AlwaysDownloadUsers = true
             });
             _client.Log += DiscordLogHandle;
