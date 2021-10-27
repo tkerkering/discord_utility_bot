@@ -1,15 +1,15 @@
-﻿using System;
+﻿using Anotar.Serilog;
+using Discord;
+using Discord.WebSocket;
+using DiscordUtilityBot.Commands.SlashCommands;
+using Serilog;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using Anotar.Serilog;
-using Discord;
-using Discord.WebSocket;
-using DiscordUtilityBot.Commands.SlashCommands;
-using Serilog;
 
 // TODO: Create config handler that reads/writes all configurations to text files (until there is a db) 
 

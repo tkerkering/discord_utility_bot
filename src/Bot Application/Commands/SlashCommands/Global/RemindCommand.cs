@@ -1,13 +1,14 @@
-﻿using System.Threading.Tasks;
-using Anotar.Serilog;
+﻿using Anotar.Serilog;
 using Discord;
 using Discord.Net;
 using Discord.WebSocket;
 using DiscordUtilityBot.Constants;
 using Newtonsoft.Json;
+using System.Threading.Tasks;
 
 namespace DiscordUtilityBot.Commands.SlashCommands.Global
 {
+#if DEBUG
     public class RemindCommand : BaseSlashDiscordCommand
     {
         public static readonly new string Name = "remind";
@@ -34,4 +35,5 @@ namespace DiscordUtilityBot.Commands.SlashCommands.Global
             await command.RespondAsync($"Not implemented yet but you used {command.Data.Name}").ConfigureAwait(false);
         }
     }
+#endif
 }

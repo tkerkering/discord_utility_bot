@@ -1,7 +1,7 @@
-﻿using System;
-using System.Linq;
-using Discord;
+﻿using Discord;
 using DiscordUtilityBot.Constants;
+using System;
+using System.Linq;
 
 namespace DiscordUtilityBot.Extensions
 {

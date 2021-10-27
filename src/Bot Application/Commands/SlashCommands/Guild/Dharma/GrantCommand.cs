@@ -1,12 +1,12 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using Anotar.Serilog;
+﻿using Anotar.Serilog;
 using Discord;
 using Discord.Net;
 using Discord.WebSocket;
 using DiscordUtilityBot.Constants;
 using DiscordUtilityBot.Extensions;
 using Newtonsoft.Json;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace DiscordUtilityBot.Commands.SlashCommands.Guild.Dharma
 {
