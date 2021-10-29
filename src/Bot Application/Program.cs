@@ -33,7 +33,12 @@ namespace DiscordUtilityBot
         {
             Log.Logger = new LoggerConfiguration().WriteTo.Console().CreateLogger();
 
+#if DEBUG
             var token = File.ReadAllText(args[0]);
+#else
+            var token = args[0];
+#endif
+
             LogTo.Information("Creating discord client with token {0}", token);
             _client = new DiscordSocketClient(new DiscordSocketConfig()
             {

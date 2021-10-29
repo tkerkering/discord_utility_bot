@@ -53,7 +53,8 @@ namespace DiscordUtilityBot.Commands.SlashCommands.Guild.Dharma
             if(!hasHomieRole)
             {
                 LogTo.Information("{0} tried to grant {1}, but {1} didn't accept the rules yet", author.Username, mentionedUser.Username);
-                await command.ModifyOriginalResponseAsync((msg) => msg.Content = Strings.GrantCommandNeedsToAcceptRules).ConfigureAwait(false);
+                var response = Strings.GrantCommandNeedsToAcceptRules.Replace("{0}", mentionedUser.Username);
+                await command.ModifyOriginalResponseAsync((msg) => msg.Content = response).ConfigureAwait(false);
                 return;
             }
             
@@ -62,12 +63,14 @@ namespace DiscordUtilityBot.Commands.SlashCommands.Guild.Dharma
             {
                 await mentionedUser.AddRoleAsync(DharmaConstants.ArksOperative).ConfigureAwait(false);
                 LogTo.Information("{0} was granted the arks operative role", mentionedUser.Username);
-                await command.ModifyOriginalResponseAsync((msg) => msg.Content = Strings.GrantCommandResponse).ConfigureAwait(false);
+                var response = Strings.GrantCommandResponse.Replace("{0}", mentionedUser.Username);
+                await command.ModifyOriginalResponseAsync((msg) => msg.Content = response).ConfigureAwait(false);
             }
             else
             {
                 LogTo.Information("{0} already is an arks operative", mentionedUser.Username);
-                await command.ModifyOriginalResponseAsync((msg) => msg.Content = Strings.GrantCommandAlreadyGrantedResponse).ConfigureAwait(false);
+                var response = Strings.GrantCommandAlreadyGrantedResponse.Replace("{0}", mentionedUser.Username);
+                await command.ModifyOriginalResponseAsync((msg) => msg.Content = response).ConfigureAwait(false);
             }
         }
     }
