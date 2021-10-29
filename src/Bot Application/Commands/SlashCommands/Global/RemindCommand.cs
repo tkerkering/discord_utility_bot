@@ -2,6 +2,7 @@
 using Discord;
 using Discord.Net;
 using Discord.WebSocket;
+using DiscordUtilityBot.Constants;
 using Newtonsoft.Json;
 using System.Threading.Tasks;
 

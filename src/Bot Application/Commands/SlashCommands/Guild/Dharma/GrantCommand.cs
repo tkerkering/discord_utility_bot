@@ -34,26 +34,39 @@ namespace DiscordUtilityBot.Commands.SlashCommands.Guild.Dharma
 
         public override async Task Respond(SocketSlashCommand command, DiscordSocketClient client)
         {
+            LogTo.Information("Grant command is being processed..");
+
             await command.DeferAsync(true).ConfigureAwait(false);
             var guild = (IGuild)client.Guilds.Where(g => g.Id == DharmaConstants.GuildId).First();
             var author = await guild.GetUserAsync(command.User.Id).ConfigureAwait(false);
             if (!author.IsOfficer())
             {
+                LogTo.Information("{0} tried to use the grant command but is not an officer", author.Username);
                 await command.ModifyOriginalResponseAsync((msg) => msg.Content = Strings.GrantCommandNotAllowed).ConfigureAwait(false);
                 return;
             }
 
             // Get the mentioned user
             var mentionedUser = (SocketGuildUser)command.Data.Options.First().Value;
-            var hasArksRole = mentionedUser.Roles.Any(x => x.Id == DharmaConstants.ArksOperative);
+            var hasHomieRole = mentionedUser.Roles.Any(x => x.Id == DharmaConstants.HomieId);
 
+            if(!hasHomieRole)
+            {
+                LogTo.Information("{0} tried to grant {1}, but {1} didn't accept the rules yet", author.Username, mentionedUser.Username);
+                await command.ModifyOriginalResponseAsync((msg) => msg.Content = Strings.GrantCommandNeedsToAcceptRules).ConfigureAwait(false);
+                return;
+            }
+            
+            var hasArksRole = mentionedUser.Roles.Any(x => x.Id == DharmaConstants.ArksOperative);
             if (!hasArksRole)
             {
                 await mentionedUser.AddRoleAsync(DharmaConstants.ArksOperative).ConfigureAwait(false);
+                LogTo.Information("{0} was granted the arks operative role", mentionedUser.Username);
                 await command.ModifyOriginalResponseAsync((msg) => msg.Content = Strings.GrantCommandResponse).ConfigureAwait(false);
             }
             else
             {
+                LogTo.Information("{0} already is an arks operative", mentionedUser.Username);
                 await command.ModifyOriginalResponseAsync((msg) => msg.Content = Strings.GrantCommandAlreadyGrantedResponse).ConfigureAwait(false);
             }
         }

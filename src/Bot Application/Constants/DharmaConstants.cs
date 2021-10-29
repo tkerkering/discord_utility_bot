@@ -34,5 +34,8 @@ namespace DiscordUtilityBot.Constants
 
         // The role that will be granted
         public static readonly ulong ArksOperative = 703775060833599599;
+
+        // Comparable to a "member" role
+        public static readonly ulong HomieId = 729777643565744240;
     }
 }
