@@ -2,7 +2,7 @@
   "profiles": {
     "String Creator": {
       "commandName": "Project",
-      "commandLineArgs": "\"../../../Files/strings.csv\" \"../../../../Bot Application/Constants/Strings.cs\""
+      "commandLineArgs": "\"../../../Files/strings.json\" \"../../../../Bot Application/Constants/Strings.cs\""
     }
   }
 }
