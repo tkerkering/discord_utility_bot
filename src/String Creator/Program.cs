@@ -54,10 +54,26 @@ namespace StringCreator
         {
             var jsonString = File.ReadAllText(pathToJsonFile);
             var deserialized = JsonSerializer.Deserialize<List<JsonDefinition>>(jsonString);
-            foreach (var entry in deserialized)
+
+            for (int i = 0; i < deserialized.Count; i++)
             {
+                JsonDefinition entry = deserialized[i];
                 Console.WriteLine("  Processing {0}", entry.Key);
-                writer.WriteLine("        public readonly static string {0} = @\"{1}\";", entry.Key, entry.Value);
+
+                writer.WriteLine("        /// <summary>");
+                var commentStrings = entry.Comment.Split("\r\n");
+                foreach (var line in commentStrings)
+                {
+                    writer.WriteLine("        /// " + line);
+                }
+                writer.WriteLine("        /// </summary>");
+
+                writer.WriteLine("        public const string {0} = @\"{1}\";", entry.Key, entry.Value);
+
+                if (i + 1 != deserialized.Count)
+                {
+                    writer.WriteLine("");
+                }
             }
         }
     }
