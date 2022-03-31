@@ -2,6 +2,8 @@
 using Discord;
 using Discord.WebSocket;
 using DiscordUtilityBot.Commands.SlashCommands;
+using DiscordUtilityBot.Commands.SlashCommands.Guild.Dharma.Configuration;
+using DiscordUtilityBot.Constants;
 using Serilog;
 using System;
 using System.Collections.Generic;
@@ -47,6 +49,7 @@ namespace DiscordUtilityBot
             _client.Log += DiscordLogHandle;
             _client.Ready += Client_Ready;
             _client.InteractionCreated += Client_InteractionCreated;
+            _client.UserJoined += Client_UserJoined;
 
             LogTo.Information("Trying to login..");
             await _client.LoginAsync(TokenType.Bot, token).ConfigureAwait(false);
@@ -79,6 +82,15 @@ namespace DiscordUtilityBot
             if (arg is SocketSlashCommand command)
             {
                 await HandleSlashCommand(command).ConfigureAwait(false);
+            }
+        }
+
+        private async Task Client_UserJoined(SocketGuildUser arg)
+        {
+            if(arg.Guild.Id == DharmaConstants.GuildId && ConfigCommand.DharmaConfiguration.InviteUpdateChannel != null)
+            {
+                // Handle user joined here
+                await ConfigCommand.DharmaConfiguration.InviteUpdateChannel.SendMessageAsync(arg.Mention + " joined the server!").ConfigureAwait(false);
             }
         }
 
