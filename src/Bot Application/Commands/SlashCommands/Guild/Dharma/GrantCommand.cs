@@ -25,10 +25,9 @@ namespace DiscordUtilityBot.Commands.SlashCommands.Guild.Dharma
             {
                 await client.Rest.CreateGuildCommand(guildCommand.Build(), DharmaConstants.GuildId).ConfigureAwait(false);
             }
-            catch (ApplicationCommandException exception)
+            catch (HttpException exception)
             {
-                var json = JsonConvert.SerializeObject(exception.Error, Formatting.Indented);
-                LogTo.Error("Error while creating grant command! {0}", json);
+                LogTo.Error("Error while creating grant command! {0}", exception.Message);
             }
         }
 
@@ -50,14 +49,14 @@ namespace DiscordUtilityBot.Commands.SlashCommands.Guild.Dharma
             var mentionedUser = (SocketGuildUser)command.Data.Options.First().Value;
             var hasHomieRole = mentionedUser.Roles.Any(x => x.Id == DharmaConstants.HomieId);
 
-            if(!hasHomieRole)
+            if (!hasHomieRole)
             {
                 LogTo.Information("{0} tried to grant {1}, but {1} didn't accept the rules yet", author.Username, mentionedUser.Username);
                 var response = Strings.GrantCommandNeedsToAcceptRules.Replace("{0}", mentionedUser.Username);
                 await command.ModifyOriginalResponseAsync((msg) => msg.Content = response).ConfigureAwait(false);
                 return;
             }
-            
+
             var hasArksRole = mentionedUser.Roles.Any(x => x.Id == DharmaConstants.ArksOperative);
             if (!hasArksRole)
             {
