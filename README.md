@@ -1,2 +1,2 @@
-# discord_utility_bot
+# Dharma Bot Iteration 2
 Bot that I wrote for people
